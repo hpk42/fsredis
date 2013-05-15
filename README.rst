@@ -12,5 +12,9 @@ To get started::
     >>> redis.get("hello")
     world
 
-For now, use completion to find out which operations are supported.
-Works for me.
+There is some support for:
+
+- key/val: get/set/del
+- hashsets: hget/hset/hgetall/hexists/hmset
+- sets: sadd/smembers/srem
+
