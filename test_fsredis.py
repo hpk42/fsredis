@@ -47,7 +47,7 @@ class TestSet:
         assert redis.sadd(key, "hello")
         assert not redis.sadd(key, "hello")
         assert redis.sismember(key, "hello")
-        assert redis.smembers(key) == set(["hello"])
+        assert redis.smembers(key) == set([b"hello"])
         assert not redis.sismember(key, "other")
         assert redis.srem(key, "hello")
         assert not redis.srem(key, "hello")

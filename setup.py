@@ -2,17 +2,13 @@ import os, sys
 
 from setuptools import setup
 
-long_description = """
-fsredis: very partial in-process implementation of the Redis API, using the
-filesystem, meant to be compatible to pyredis.
-(c) Holger Krekel 2013
-"""
+long_description = open("README.rst").read()
 def main():
     setup(
         name='fsredis',
         description='fsredis: in-process redis api, persisting to file system.',
         long_description = long_description,
-        version="0.4.dev1",
+        version="0.4",
         url='http://github.com/hpk42/fsredis',
         license='MIT license',
         platforms=['unix', 'linux', 'osx', 'cygwin', 'win32'],
@@ -27,7 +23,7 @@ def main():
                      'Topic :: Utilities',
                      'Intended Audience :: Developers',
                      'Programming Language :: Python'],
-        py_modules = ['fsredis'],
+        py_modules = ['fsredis', "test_fsredis"],
     )
 
 if __name__ == '__main__':

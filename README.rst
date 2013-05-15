@@ -29,3 +29,7 @@ API and the FSRedis api on Python26, python26 and Python33.
 
 I welcome pull requests to fix things or add operations
 if they are tested.
+
+
+(C) Holger Krekel 2013, License: MIT
+
