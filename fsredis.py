@@ -51,8 +51,22 @@ class FSRedis:
 
     def set(self, key, val):
         p = self._getpath(key)
+        if isinstance(val, int):
+            val = str(val)
         with open(p, "wb") as f:
             f.write(val)
+
+    def delete(self, *keys):
+        deleted = 0
+        for key in keys:
+            p = self._getpath(key)
+            try:
+                os.remove(p)
+            except OSError:
+                continue
+            else:
+                deleted += 1
+        return bool(deleted)
 
     def exists(self, key):
         return exists(self._getpath(key))
@@ -104,7 +118,7 @@ class FSRedis:
         try:
             keys = os.listdir(p)
         except (IOError, OSError):
-            return []
+            return {}
         d = {}
         for subfile in keys:
             subpath = joinpath(p, subfile)
@@ -122,7 +136,7 @@ class FSRedis:
         p = self._getpath(key)
         if not exists(p):
             return set()
-        return [self._unquote(x) for x in os.listdir(p)]
+        return set([self._unquote(x) for x in os.listdir(p)])
 
     def sadd(self, key, field):
         p = self._getpath(key, field)

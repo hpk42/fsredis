@@ -21,11 +21,21 @@ def key(request):
     return request.param
 
 class TestKeyVal:
-    def test_getset(self, redis, key):
+    def test_getsetdel(self, redis, key):
         assert redis.get(key) is None
         redis.set(key, b"world")
         assert redis.get(key) == b"world"
         assert redis.exists(key)
+        assert redis.delete(key)
+        assert not redis.delete(key)
+        assert not redis.exists(key)
+
+    def test_multidelete(self, redis):
+        redis.set(b"key1", b"val1")
+        redis.set(b"key2", b"val2")
+        redis.set(b"key3", b"val3")
+        assert redis.delete(b"key1", b"key2")
+        assert redis.delete(b"key2", b"key3")
 
     def test_exists(self, redis, key):
         assert not redis.exists(key)
@@ -37,6 +47,7 @@ class TestSet:
         assert redis.sadd(key, "hello")
         assert not redis.sadd(key, "hello")
         assert redis.sismember(key, "hello")
+        assert redis.smembers(key) == set(["hello"])
         assert not redis.sismember(key, "other")
         assert redis.srem(key, "hello")
         assert not redis.srem(key, "hello")
@@ -65,6 +76,9 @@ class TestHashSet:
         assert set(redis.hkeys(b"key10")) == set([b"field1", b"field2"])
         assert redis.hgetall(b"key10") == {
                 b"field1": b"val1",b"field2":b"val2"}
+
+    def test_hgetall_empty(self, redis):
+        assert redis.hgetall(b"key11") == {}
 
     def test_hmset(self, redis):
         redis.hset(b"key", b"field0", b"val0")

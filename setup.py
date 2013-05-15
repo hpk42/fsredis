@@ -12,7 +12,7 @@ def main():
         name='fsredis',
         description='fsredis: in-process redis api, persisting to file system.',
         long_description = long_description,
-        version="0.3",
+        version="0.4.dev1",
         url='http://github.com/hpk42/fsredis',
         license='MIT license',
         platforms=['unix', 'linux', 'osx', 'cygwin', 'win32'],
