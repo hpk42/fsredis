@@ -31,5 +31,5 @@ I welcome pull requests to fix things or add operations
 if they are tested.
 
 
-(C) Holger Krekel 2013, License: MIT
+copyright: Holger Krekel 2013, License: MIT
 
